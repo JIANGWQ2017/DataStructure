@@ -26,6 +26,49 @@ def postOrderTrav(root):
 		postOrderTrav(root.right)
 		print(root.data)
 
+def inOrderTravIter(root):
+
+	s  = []
+	while True:
+		while root:
+			s.append(root)
+			root  = root.left
+		if not s:
+			break
+		node = s.pop()
+		print(node.data)
+		root = node.right
+		
+def preOrderTravIter(root):
+    ret = []
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        if node:
+            ret.append(node.data)
+            stack.append(node.right)
+            stack.append(node.left)
+    return ret
+			
+def postOrderTravIter(root):
+
+	'''
+	关键在于 怎么实现stack中保存后序遍历的倒序，即根右左
+	'''
+	res,s = [],[root]
+	while s:
+		node = s.pop()
+		print(node.data)
+		if node.left:
+			s.append(node.left)
+		if node.right:
+			s.append(node.right)
+		res.append(node.data)
+	for n in res[::-1]:
+		print(n)
+	
+	
+	
 #using queue to realize BFTrav		
 from queue import Queue
 def BFTrav(root):
@@ -172,10 +215,12 @@ if __name__ == '__main__':
 		bst.addNode(i)
 	for i in range(-5,0):
 		bst.addNode(i)
+		
+	print("pre order traverse recursively")
 	preOrderTrav(bst.root)
-	print()
+	print("inorder traverse recursively")
 	inOrderTrav(bst.root)
-	print()
+	print("postorder traverse recursively")
 	postOrderTrav(bst.root)
 	print()
 	BFTrav(bst.root)
@@ -183,8 +228,12 @@ if __name__ == '__main__':
 	print()
 	bst.deleteNode(-4)
 	BFTrav(bst.root)
-		
-		
+	print('inorder traverse Iteratively:')
+	inOrderTravIter(bst.root)
+	print('preorder traverse Iteratively:')
+	preOrderTravIter(bst.root)	
+	print('postorder traverse Iteratively:')
+	postOrderTravIter(bst.root)	
 		
 		
 		
